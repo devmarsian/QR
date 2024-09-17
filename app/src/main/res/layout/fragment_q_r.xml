@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="user"
+            type="com.testask.kiosktabletapp.data.models.User" />
+
+        <variable
+            name="payload"
+            type="com.testask.kiosktabletapp.data.models.Payload" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_gravity="top"
+            android:layout_height="24dp"
+            android:src="@drawable/backbutton" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/userDataLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userIdTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`ID: ` + user.id}"/>
+
+            <TextView
+                android:id="@+id/userNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Name: ` + user.name}"/>
+
+            <TextView
+                android:id="@+id/userEmailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Email: ` + user.email}"/>
+
+            <TextView
+                android:id="@+id/userIsConfTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Is Confirm: ` + user.is_confirm}"/>
+
+            <TextView
+                android:id="@+id/userEmailVerTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Email Verified At: ` + user.email_verified_at}"/>
+
+            <TextView
+                android:id="@+id/userCreatedAtTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Created At: ` + user.created_at}"/>
+
+            <TextView
+                android:id="@+id/userUpdAtTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Updated At: ` + user.updated_at}"/>
+
+            <TextView
+                android:id="@+id/userThemaTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Theme: ` + user.thema}"/>
+
+            <TextView
+                android:id="@+id/userLangTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Language: ` + user.lang}"/>
+
+            <TextView
+                android:id="@+id/userBlockIdTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Block Id: ` + payload.block_id}"/>
+
+            <TextView
+                android:id="@+id/userBlockNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Block Name: ` + payload.block_name}"/>
+
+            <TextView
+                android:id="@+id/userBlockPingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Block_Ping: ` + payload.block_ping}"/>
+
+            <TextView
+                android:id="@+id/userStageNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Stage Name: ` + payload.stage_name}"/>
+
+            <TextView
+                android:id="@+id/userStageAddressTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Stage Address: ` + payload.stage_address}"/>
+
+        </LinearLayout>
+
+
+
+
+        <TextView
+            android:id="@+id/errorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/qrCodeImageView"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+</layout>
