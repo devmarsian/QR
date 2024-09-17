@@ -66,7 +66,7 @@ class UserViewModel (
         }
     }
 
-    fun fetchUserData(token: String) {
+    private fun fetchUserData(token: String) {
         viewModelScope.launch {
             val userData = fetchUserDataUseCase(token)
             handleUserData(userData)
@@ -86,15 +86,13 @@ class UserViewModel (
     }
 
     fun handleKioskMode(context: Context, isBlocked: Boolean) {
-        viewModelScope.launch {
-            if (isBlocked) {
-                if (kioskModeUseCase.initializeKioskMode(context)) {
-                    kioskModeUseCase.startKioskMode(context)
-                }
+        val activity = (context as? Activity) ?: return
+        if (isBlocked) {
+                kioskModeUseCase.initializeKioskMode(context)
+                kioskModeUseCase.startKioskMode(context)
             } else {
-                kioskModeUseCase.stopKioskMode(context as Activity)
+                kioskModeUseCase.stopKioskMode(activity)
             }
-        }
     }
 
     fun clearNavigationState() {

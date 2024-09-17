@@ -1,5 +1,8 @@
 package com.testask.kiosktabletapp.presentation.fragments
 
+import android.app.Activity
+import android.app.ActivityManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +35,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         userViewModel.loginState.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is LoginResult.Loading -> {
@@ -57,8 +61,6 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.email.text.clear()
-        binding.password.text.clear()
         _binding = null
     }
 }

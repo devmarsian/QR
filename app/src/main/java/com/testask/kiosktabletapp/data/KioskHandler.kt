@@ -7,24 +7,29 @@ import android.content.ComponentName
 import android.content.Context
 import android.os.Build
 import android.os.UserManager
+import android.util.Log
 
 
 object KioskHandler {
     var mAdminComponentName: ComponentName? = null
     var mDevicePolicyManager: DevicePolicyManager? = null
 
-    fun startKioskMode(context: Context) {
+    fun startBlockMode(context: Context) {
         val activity = context as Activity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             activity.startLockTask()
         }
     }
 
-    fun stopKiosk(context: Activity) {
+    fun stopBlockMode(context: Activity) {
         val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        if (am.lockTaskModeState == ActivityManager.LOCK_TASK_MODE_LOCKED) {
-            context.stopLockTask()
-            setDefaultCosuPolicies(false)
+        try {
+            if (am.lockTaskModeState == ActivityManager.LOCK_TASK_MODE_LOCKED) {
+                context.stopLockTask()
+                setDefaultCosuPolicies(false)
+            }
+        } catch (e: Exception) {
+            Log.e("KIOSK_DEBUG", "Error kiosk mode: ${e.localizedMessage}")
         }
     }
 
@@ -53,7 +58,7 @@ object KioskHandler {
             } else {
                 return false
             }
-        } catch (ignored: Exception) {
+        } catch (e: Exception) {
             return false
         }
     }

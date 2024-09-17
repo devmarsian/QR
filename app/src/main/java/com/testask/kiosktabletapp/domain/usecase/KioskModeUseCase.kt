@@ -13,10 +13,10 @@ class KioskModeUseCase(
     }
 
     fun startKioskMode(context: Context) {
-        kioskHandler.startKioskMode(context)
+        kioskHandler.startBlockMode(context)
     }
 
     fun stopKioskMode(context: Activity) {
-        kioskHandler.stopKiosk(context)
+        kioskHandler.stopBlockMode(context)
     }
 }
