@@ -71,7 +71,6 @@ class QRFragment : Fragment() {
                     binding.userDataLayout.visibility = View.GONE
                     binding.errorMessage.visibility = View.VISIBLE
                     binding.errorMessage.text = result.message
-                    userViewModel.handleKioskMode(requireActivity(), true)
                 }
             }
         }

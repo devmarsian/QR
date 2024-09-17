@@ -1,8 +1,5 @@
 package com.testask.kiosktabletapp.presentation.fragments
 
-import android.app.Activity
-import android.app.ActivityManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +12,6 @@ import com.testask.kiosktabletapp.databinding.FragmentLoginBinding
 import com.testask.kiosktabletapp.domain.model.LoginResult
 import com.testask.kiosktabletapp.presentation.viewmodels.UserViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
 
