@@ -36,6 +36,7 @@ class QRFragment : Fragment() {
         _binding = null
         userViewModel.userDataState.removeObserver(userDataObserver)
         userViewModel.handleKioskMode(requireActivity(), false)
+        userViewModel.stopPolling()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

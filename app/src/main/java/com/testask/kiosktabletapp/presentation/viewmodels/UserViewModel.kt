@@ -3,11 +3,13 @@ package com.testask.kiosktabletapp.presentation.viewmodels
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Base64
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.testask.kiosktabletapp.data.models.Payload
 import com.testask.kiosktabletapp.data.models.ResponseAuth
 import com.testask.kiosktabletapp.data.models.SecondResponse
@@ -18,8 +20,14 @@ import com.testask.kiosktabletapp.domain.usecase.GenerateQRCodeUseCase
 import com.testask.kiosktabletapp.domain.usecase.KioskModeUseCase
 import com.testask.kiosktabletapp.domain.model.LoginResult
 import com.testask.kiosktabletapp.domain.usecase.LoginUserUseCase
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
+import javax.crypto.Cipher
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
 class UserViewModel (
     private val loginUserUseCase: LoginUserUseCase,
@@ -37,6 +45,9 @@ class UserViewModel (
 
     private val _qrBitmap = MutableLiveData<Bitmap?>(null)
     val qrBitmap: LiveData<Bitmap?> = _qrBitmap
+
+    private var pollingJob: Job? = null
+
 
     fun loginUser(login: String, password: String) {
         viewModelScope.launch {
@@ -67,10 +78,17 @@ class UserViewModel (
     }
 
     private fun fetchUserData(token: String) {
-        viewModelScope.launch {
-            val userData = fetchUserDataUseCase(token)
-            handleUserData(userData)
+        pollingJob = viewModelScope.launch {
+            while (isActive){
+                val userData = fetchUserDataUseCase(token)
+                handleUserData(userData)
+                delay(30_000L)
+            }
         }
+    }
+
+    fun stopPolling() {
+        pollingJob?.cancel()
     }
 
     private fun handleUserData(userData: SecondResponse?) {
@@ -101,8 +119,9 @@ class UserViewModel (
 
     fun updateQRCode(key: String, payload: Payload) {
         viewModelScope.launch {
-            val encryptedPayload = encryptDataUseCase(key, payload.toString())
-            val qrCodeBitmap = generateQRCodeUseCase(encryptedPayload, 512, 512)
+            val payloadJson = Gson().toJson(payload)
+            val encryptedPayload = encryptDataUseCase(key, payloadJson)
+            val qrCodeBitmap = generateQRCodeUseCase( encryptedPayload, 512, 512)
             _qrBitmap.postValue(qrCodeBitmap)
         }
     }
