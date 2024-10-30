@@ -11,4 +11,4 @@ How It Works
 3. The app monitors the is_blocked flag from the API response in real-time. Depending on its value, the app enables or disables interactions with the device.
 4. The app can display a dynamically generated QR code if the qr field is present in the API response.
 
-![Demo Animation](https://imgur.com/a/cw0xRlQ)
+![Demo Animation](https://github.com/devmarsian/QR/blob/fae5578d09565926dfd42ec5c28db6ddd3a2ef7d/KioskApp.gif)
